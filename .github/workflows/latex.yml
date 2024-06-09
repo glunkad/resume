@@ -24,10 +24,12 @@ jobs:
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: Resume compiled on ${{ steps.time.outputs.time }}
           tag_name: ${{ steps.time.outputs.time }}
-          if: startsWith(github.ref, 'refs/tags/')
+          
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
