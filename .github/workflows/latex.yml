@@ -27,6 +27,7 @@ jobs:
         with:
           name: Resume compiled on ${{ steps.time.outputs.time }}
           tag_name: ${{ steps.time.outputs.time }}
+        env:
           GITHUB_TOKEN: ${{ secrets.MY_LATEX }}
       - name: Upload Release Asset
         id: upload-release-asset
