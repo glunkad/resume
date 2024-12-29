@@ -34,6 +34,8 @@
 \usepackage{ifthen} % for conditional statements
 \usepackage{needspace} % for avoiding page brake right after the section title
 \usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+\usepackage{xcolor}
+\usepackage{hyperref}
 
 % Ensure that generate pdf is machine readable/ATS parsable:
 \ifPDFTeX
@@ -169,11 +171,12 @@
         % \kern 5.0 pt%
         % \AND%
         % \kern 5.0 pt%
-        \mbox{\hrefWithoutArrow{mailto:hello@glunkad.me}{hello@glunkad.me}}%
+        % \mbox{\hrefWithoutArrow{mailto:hello@glunkad.me}{hello@glunkad.me}}%
+        \mbox{\href{mailto:hello@glunkad.me}{\textcolor{blue}{\underline{hello@glunkad.me}}}}
         \kern 5.0 pt%
         \AND%
         \kern 5.0 pt%
-        \mbox{\hrefWithoutArrow{tel:+91-7620980424}{7620980424}}%
+        \mbox{\hrefWithoutArrow{tel:+91-7620980424}{\textcolor{blue}{7620980424}}}%
         % \kern 5.0 pt%
         % \AND%
         % \kern 5.0 pt%
@@ -181,11 +184,11 @@
         \kern 5.0 pt%
         \AND%
         \kern 5.0 pt%
-        \mbox{\hrefWithoutArrow{http://www.linkedin.com/in/gl-gunjan-lunkad}{linkedin.com/in/gunjan-lunkad}}%
+        \mbox{\hrefWithoutArrow{http://www.linkedin.com/in/gl-gunjan-lunkad}{\textcolor{blue}{\underline{linkedin.com/in/gunjan-lunkad}}}}%
         \kern 5.0 pt%
         \AND%
         \kern 5.0 pt%
-        \mbox{\hrefWithoutArrow{https://github.com/glunkad}{github.com/glunkad}}%
+        \mbox{\hrefWithoutArrow{https://github.com/glunkad}{\textcolor{blue}{\underline{github.com/glunkad}}}}%
     \end{header}
 
     \vspace{5 pt - 0.3 cm}
@@ -246,7 +249,7 @@
         \vspace{0.10 cm}
         \begin{onecolentry}
             \begin{highlights}
-                \item Achieved a 30\% reduction in data processing time by automating Excel updates using Pandas 
+                \item Achieved a 30\% reduction in data processing time by automating Excel updates using Pandas .
                 \item Designed a Python-based GUI to load and process testing data, display results interactively, and save outputs directly into Excel for seamless reporting.
                 % \item Created a test case generation tool that creates random XML docs from XML Schema
                 % \item Automated the extraction and processing of large datasets from legacy systems using SQL and Perl scripts
@@ -348,7 +351,7 @@
   
         \begin{highlightsforbulletentries}
             \item Scored 80.21\% in the TCS National Qualifier Test (NQT)
-            \item Led a team to the top 10 in the national-level E-yantra competition by IIT Bombay. We beat 190 teams.
+            \item Led a team to the top 10 in the national-level E-yantra competition by IIT Bombay, beating 190 teams.
         \end{highlightsforbulletentries}
 
     
