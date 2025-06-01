@@ -1,28 +1,36 @@
 name: Build LaTeX document
+
 on: [push]
+
 permissions:
   contents: write
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
           root_file: main.tex
+
       - name: Uploading artifact
         uses: actions/upload-artifact@v4
         with:
           name: PDF
           path: main.pdf
+
       - name: Get Time
         id: time
         uses: nanzm/get-time-action@v1.1
         with:
           timeZone: -7
           format: 'YYYY-MM-DD-HH-mm-ss'
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
@@ -30,7 +38,6 @@ jobs:
           name: Resume compiled on ${{ steps.time.outputs.time }}
           tag_name: ${{ steps.time.outputs.time }}
           # GITHUB_TOKEN: ${{ secrets.MY_LATEX }}
-    
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -40,11 +47,15 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./main.pdf
-          asset_name:  resume-${{ steps.time.outputs.time }}.pdf
+          asset_name: resume-${{ steps.time.outputs.time }}.pdf
           asset_content_type: application/pdf
-          
+
       - name: Install ghostscript
-        run: sudo apt-get update --fix-missing && sudo apt install ghostscript
+        run: sudo apt-get update --fix-missing && sudo apt-get install -y ghostscript
+
+      - name: Install ImageMagick
+        run: sudo apt-get install -y imagemagick
+
       - name: Change ImageMagick security policy
         run: |
           DQT='"' 
@@ -68,18 +79,18 @@ jobs:
           sudo sed -i "s/$WDT/$WDTR/" /etc/ImageMagick-6/policy.xml
           sudo sed -i "s/$MAP/$MAPR/" /etc/ImageMagick-6/policy.xml
           sudo sed -i "s/$MEM/$MEMR/" /etc/ImageMagick-6/policy.xml
-          
+
       - name: Convert PDF to PNG
         run: convert -density 900 -background white -alpha off main.pdf -resize 25% -quality 90 -colorspace RGB resume.png
+
       - name: Commit PNG 
-        id: commit
         run: |
           git config --local user.email "action[bot]@github.com"
           git config --local user.name "github-actions[bot]"
           git add resume.png 
-          git commit -m "[bot] updated resume.png "
+          git commit -m "[bot] updated resume.png"
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          
